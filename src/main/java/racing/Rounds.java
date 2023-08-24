@@ -3,7 +3,8 @@ package racing;
 public class Rounds {
     public static final int MAX_ROUND = 10;
     public static final int MIN_ROUND = 1;
-    private int totalRounds;
+    private final int totalRounds;
+    private int remainingRounds;
 
     public static Rounds of(String inputRounds) {
         return new Rounds(inputRounds);
@@ -13,6 +14,7 @@ public class Rounds {
         int totalRounds = parseTotalRounds(inputRounds);
         validateTotalRoundsSize(totalRounds);
         this.totalRounds = totalRounds;
+        this.remainingRounds = totalRounds;
     }
 
     private int parseTotalRounds (String inputRounds) {
@@ -26,6 +28,17 @@ public class Rounds {
         }
     }
 
+    public void minusRound(){
+        remainingRounds -= 1;
+    }
+
+    public boolean hasRemainingRound() {
+        return remainingRounds > 0;
+    }
+
+    public int getRemainingRounds() {
+        return remainingRounds;
+    }
     public int getTotalRounds() {
         return totalRounds;
     }
