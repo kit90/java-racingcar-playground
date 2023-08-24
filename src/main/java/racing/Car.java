@@ -1,35 +1,51 @@
 package racing;
 
+import java.util.Objects;
+
 public class Car {
-    public static final int FORWARD_SPEED = 4;
     public static final int MAX_NAME_LENGTH = 5;
     private final String name;
-    private int speed;
+    private CarSpeed carSpeed;
+    private int forwardCount;
 
-    private Car(String name) {
+    private Car(String name, CarSpeed carSpeed) {
         this.name = name;
+        this.carSpeed = carSpeed;
     }
 
     public static Car makeCarByName(String name) {
         validateNameLength(name);
-        return new Car(name);
+        return new Car(name, new CarSpeed(0));
     }
 
     private static void validateNameLength(String name) {
         if(name.length() > MAX_NAME_LENGTH) {
-            throw  new RuntimeException("자동차 이름은 "+MAX_NAME_LENGTH+"자를 초과할 수 없습니다.");
+            String sizeErrorMsg = String.format("자동차 이름은 %d자를 초과할 수 없습니다.", MAX_NAME_LENGTH);
+            throw  new RuntimeException(sizeErrorMsg);
         }
+    }
+
+    public void setCarSpeed(int carSpeed) {
+        this.carSpeed.setSpeed(carSpeed);
+    }
+
+    public void forwardCar() {
+        if(carSpeed.isForwardSpeedOrMore()) {
+            forwardCount += 1;
+        }
+    }
+
+    public boolean equalsName(String name) {
+        return this.name.equals(name);
     }
 
     public String getName() {
         return name;
     }
-
-    public void resetSpeed(int speed) {
-        this.speed = (int) (Math.random() * 10);
+    public int getForwardCount() {
+        return forwardCount;
     }
-
-    public boolean isForwardSpeedOrMore() {
-        return this.speed >= FORWARD_SPEED;
+    public CarSpeed getCarSpeed() {
+        return carSpeed;
     }
 }
