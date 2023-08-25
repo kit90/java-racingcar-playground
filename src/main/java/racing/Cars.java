@@ -2,10 +2,8 @@ package racing;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 
 public class Cars {
@@ -39,20 +37,24 @@ public class Cars {
             throw new RuntimeException("중복된 자동차 이름은 입력할 수 없습니다.");
         }
     }
+    public void forwardBySpeeds(List<Integer> speeds) {
+        setRacingCarsSpeed(speeds);
+        forwardRacingCars();
+    }
 
-    public void setRacingCarsSpeed(List<Integer> speeds) {
+    private void setRacingCarsSpeed(List<Integer> speeds) {
         IntStream.range(0, racingCars.size())
-                        .forEach(i -> {
-                            Car car = racingCars.get(i);
-                            car.setCarSpeed(speeds.get(i));
-                        });
+                .forEach(i -> {
+                    Car car = racingCars.get(i);
+                    car.setCarSpeed(speeds.get(i));
+                });
     }
 
-    public void forwardRacingCars() {
-        racingCars.stream().forEach(Car::forwardCar);
+    private void forwardRacingCars() {
+        racingCars.stream().forEach(Car::forward);
     }
 
-    public List<Car> getMaxForwardCars() {
+    public List<Car> getWinnerCars() {
         int maxForwardCount = getMaxForwardCount();
         return racingCars.stream()
                 .filter(car -> car.getForwardCount() == maxForwardCount)
@@ -66,12 +68,12 @@ public class Cars {
                 .orElse(0);
     }
 
-    public Car findByCarName(String name) {
+    /*public Car findByCarName(String name) {
         return racingCars.stream()
                 .filter(car -> car.equalsName(name))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("이름에 해당하는 자동차가 없습니다."));
-    }
+    }*/
 
     public List<Car> getRacingCars() {
         return racingCars;

@@ -4,7 +4,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Arrays;
@@ -59,7 +58,7 @@ public class CarsTest {
         String errMsg = String.format("자동차 속도는 %d~%d사이여야합니다.", CarSpeed.MIN_SPEED, CarSpeed.MAX_SPEED);
         assertThatExceptionOfType(RuntimeException.class)
                 .isThrownBy(()->{
-                    cars.setRacingCarsSpeed(integers);
+                    cars.forwardBySpeeds(integers);
                 }).withMessageMatching(errMsg);
     }
 
@@ -80,9 +79,8 @@ public class CarsTest {
     void forward() {
         //given
         Cars cars = Cars.makeCarsByNames("pobi,crong,honux");
-        cars.setRacingCarsSpeed(Arrays.asList(5, 4, 3));
+        cars.forwardBySpeeds(Arrays.asList(5, 4, 3));
         //when
-        cars.forwardRacingCars();
         List<Car> racingCars = cars.getRacingCars();
         //then
         assertAll("speed 4 or more is 1 forward",
@@ -98,12 +96,10 @@ public class CarsTest {
         //given
         Cars cars = Cars.makeCarsByNames("pobi,crong,honux");
         //when
-        cars.setRacingCarsSpeed(Arrays.asList(5, 4, 3));
-        cars.forwardRacingCars();
-        cars.setRacingCarsSpeed(Arrays.asList(4, 5, 3));
-        cars.forwardRacingCars();
+        cars.forwardBySpeeds(Arrays.asList(5, 4, 3));
+        cars.forwardBySpeeds(Arrays.asList(4, 5, 3));
         //then
-        List<Car> winners = cars.getMaxForwardCars();
+        List<Car> winners = cars.getWinnerCars();
         List<String> names = winners.stream()
                 .map(Car::getName)
                 .collect(Collectors.toList());

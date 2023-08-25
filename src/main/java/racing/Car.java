@@ -1,7 +1,5 @@
 package racing;
 
-import java.util.Objects;
-
 public class Car {
     public static final int MAX_NAME_LENGTH = 5;
     private final String name;
@@ -29,7 +27,7 @@ public class Car {
         this.carSpeed.setSpeed(carSpeed);
     }
 
-    public void forwardCar() {
+    public void forward() {
         if(carSpeed.isForwardSpeedOrMore()) {
             forwardCount += 1;
         }

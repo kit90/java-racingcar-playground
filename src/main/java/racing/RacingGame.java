@@ -12,7 +12,7 @@ public class RacingGame {
         this.rounds = rounds;
     }
 
-/*    public static RacingGame makeGame(String carNames, String inputRounds) {
+   /* public static RacingGame makeGame(String carNames, String inputRounds) {
         Cars cars = Cars.makeCarsByNames(carNames);
         Rounds rounds = Rounds.of(inputRounds);
         return new RacingGame(cars, rounds);
@@ -23,19 +23,14 @@ public class RacingGame {
         return new RacingGame(cars, rounds);
     }
 
-    private static int getTotalRound(String inputRounds) {
-        return Integer.parseInt(inputRounds);
-    }
-
     public void play() {
         rounds.minusRound();
         List<Integer> speeds = SpeedGenerator.generateSpeeds(cars.getRacingCars().size());
-        cars.setRacingCarsSpeed(speeds);
-        cars.forwardRacingCars();
+        cars.forwardBySpeeds(speeds);
     }
 
     public List<String> getWinnerNames() {
-        return cars.getMaxForwardCars()
+        return cars.getWinnerCars()
                 .stream()
                 .map(Car::getName)
                 .collect(Collectors.toList());
