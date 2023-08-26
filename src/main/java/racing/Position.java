@@ -21,6 +21,10 @@ public class Position {
         return this;
     }
 
+    public boolean moreThan(Position position) {
+        return this.position > position.position;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -24,6 +24,7 @@ public class CarTest {
     @Test
     void car_name() {
         assertThat(car.getName()).isEqualTo(new Name("pobi"));
+        //assertThat(car.getName().equals(new Name("pobi"))).isTrue();
     }
 
     @DisplayName("자동차_이름이_없거나_5자를_초과하면_예외_발생")
